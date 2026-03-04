@@ -6,5 +6,8 @@ function darlingteatime_enqueue_styles() {
 		get_stylesheet_directory_uri() . '/style.css',
 		array( 'parent-style' )
 	);
+
+	// Enqueue Google Fonts
+	wp_enqueue_style( 'darlingteatime-fonts', 'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap', array(), null );
 }
 add_action( 'wp_enqueue_scripts', 'darlingteatime_enqueue_styles' );
