@@ -37,18 +37,18 @@ Text Domain: darlingteatime-theme
 
 	/* The CSS mask that creates the scalloped outer edge */
 	-webkit-mask:
-		radial-gradient(var(--scallop-radius) at 50% var(--scallop-radius), #000 98%, #0000 101%) 0 calc(-1 * var(--scallop-radius)) / var(--scallop-spacing) 100%,
-		radial-gradient(var(--scallop-radius) at var(--scallop-radius) 50%, #000 98%, #0000 101%) calc(-1 * var(--scallop-radius)) 0 / 100% var(--scallop-spacing),
-		radial-gradient(var(--scallop-radius) at 50% calc(100% - var(--scallop-radius)), #000 98%, #0000 101%) 0 var(--scallop-radius) / var(--scallop-spacing) 100%,
-		radial-gradient(var(--scallop-radius) at calc(100% - var(--scallop-radius)) 50%, #000 98%, #0000 101%) var(--scallop-radius) 0 / 100% var(--scallop-spacing),
-		linear-gradient(#000 0 0) center / calc(100% - var(--scallop-spacing)) calc(100% - var(--scallop-spacing)) no-repeat;
+		radial-gradient(var(--scallop-radius) at 50% var(--scallop-radius), #000 98%, #0000 101%) 0 0 / var(--scallop-spacing) 100%,
+		radial-gradient(var(--scallop-radius) at var(--scallop-radius) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--scallop-spacing),
+		radial-gradient(var(--scallop-radius) at 50% calc(100% - var(--scallop-radius)), #000 98%, #0000 101%) 0 0 / var(--scallop-spacing) 100%,
+		radial-gradient(var(--scallop-radius) at calc(100% - var(--scallop-radius)) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--scallop-spacing),
+		linear-gradient(#000 0 0) center / calc(100% - 2 * var(--scallop-radius)) calc(100% - 2 * var(--scallop-radius)) no-repeat;
 
 	mask:
-		radial-gradient(var(--scallop-radius) at 50% var(--scallop-radius), #000 98%, #0000 101%) 0 calc(-1 * var(--scallop-radius)) / var(--scallop-spacing) 100%,
-		radial-gradient(var(--scallop-radius) at var(--scallop-radius) 50%, #000 98%, #0000 101%) calc(-1 * var(--scallop-radius)) 0 / 100% var(--scallop-spacing),
-		radial-gradient(var(--scallop-radius) at 50% calc(100% - var(--scallop-radius)), #000 98%, #0000 101%) 0 var(--scallop-radius) / var(--scallop-spacing) 100%,
-		radial-gradient(var(--scallop-radius) at calc(100% - var(--scallop-radius)) 50%, #000 98%, #0000 101%) var(--scallop-radius) 0 / 100% var(--scallop-spacing),
-		linear-gradient(#000 0 0) center / calc(100% - var(--scallop-spacing)) calc(100% - var(--scallop-spacing)) no-repeat;
+		radial-gradient(var(--scallop-radius) at 50% var(--scallop-radius), #000 98%, #0000 101%) 0 0 / var(--scallop-spacing) 100%,
+		radial-gradient(var(--scallop-radius) at var(--scallop-radius) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--scallop-spacing),
+		radial-gradient(var(--scallop-radius) at 50% calc(100% - var(--scallop-radius)), #000 98%, #0000 101%) 0 0 / var(--scallop-spacing) 100%,
+		radial-gradient(var(--scallop-radius) at calc(100% - var(--scallop-radius)) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--scallop-spacing),
+		linear-gradient(#000 0 0) center / calc(100% - 2 * var(--scallop-radius)) calc(100% - 2 * var(--scallop-radius)) no-repeat;
 }
 
 /* Ensure the image touches the border edge and behaves well */
