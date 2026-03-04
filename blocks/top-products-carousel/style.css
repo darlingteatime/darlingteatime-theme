@@ -1,0 +1,39 @@
+.wp-block-darlingteatime-top-products-carousel {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+
+.top-products-carousel-track {
+	display: flex;
+	gap: 20px;
+	overflow-x: auto;
+	scroll-behavior: auto; /* Required for JS autoscroll to be smooth */
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE/Edge */
+	/* Optional: add some padding to prevent images from clipping box shadows */
+	padding-block: 10px;
+}
+
+.top-products-carousel-track::-webkit-scrollbar {
+	display: none; /* Chrome/Safari */
+}
+
+.top-products-carousel-item {
+	flex: 0 0 auto;
+	/* Base width so they show up nicely on mobile, larger on desktop */
+	width: 250px;
+}
+
+.top-products-carousel-item img {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	border-radius: 8px; /* Optional, adding some polish */
+	display: block;
+	transition: transform 0.3s ease;
+}
+
+.top-products-carousel-item a:hover img {
+	transform: scale(1.02);
+}

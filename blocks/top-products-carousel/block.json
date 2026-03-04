@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "darlingteatime/top-products-carousel",
+  "title": "Top Products Carousel",
+  "category": "widgets",
+  "icon": "images-alt2",
+  "description": "A carousel of the top selling WooCommerce products.",
+  "supports": {
+    "html": false,
+    "interactivity": true
+  },
+  "attributes": {
+    "numberOfProducts": {
+      "type": "number",
+      "default": 5
+    }
+  },
+  "render": "file:./render.php",
+  "viewScriptModule": "file:./view.js",
+  "editorScript": "file:./index.js",
+  "style": "file:./style.css"
+}
