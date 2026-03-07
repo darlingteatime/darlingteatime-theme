@@ -12,7 +12,7 @@ Text Domain: darlingteatime-theme
 	--scallop-thickness: 8px; /* Thickness of the frame */
 	--scallop-radius: 8px;   /* Radius of the scallop curves (must be half of spacing) */
 	--scallop-spacing: 16px; /* Spacing between scallops */
-	--scallop-color: var(--wp--preset--color--primary, #f192b6); /* Rose Pink */
+	--scallop-color: #f7b9ce; /* Lighter Rose Pink */
 }
 
 /*
@@ -98,4 +98,18 @@ Text Domain: darlingteatime-theme
     display: block;
     margin: 0;
     padding: 0;
+}
+
+/* Ensure the sale icon on products sits nicely above the scalloped edge */
+.onsale {
+	position: absolute;
+	z-index: 10;
+	top: 10px;
+	left: 10px;
+	background-color: var(--wp--preset--color--secondary, #3da193); /* Deep Mint Accent */
+	color: var(--wp--preset--color--base, #e2fff7); /* Soft Mint Background */
+	padding: 0.5em 1em;
+	border-radius: 4px;
+	font-weight: bold;
+	text-transform: uppercase;
 }
