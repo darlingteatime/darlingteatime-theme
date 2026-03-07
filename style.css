@@ -5,3 +5,116 @@ Template: twentytwentyfive
 Version: 1.0.0
 Text Domain: darlingteatime-theme
 */
+
+/* WooCommerce Cutesy Scalloped Frames */
+
+:root {
+	--scallop-thickness: 8px; /* Thickness of the frame */
+	--scallop-radius: 8px;   /* Radius of the scallop curves (must be half of spacing) */
+	--scallop-spacing: 16px; /* Spacing between scallops */
+	--scallop-color: var(--wp--preset--color--primary, #f192b6); /* Rose Pink */
+}
+
+/*
+ * Apply directly to modern WooCommerce block components
+ * Twenty Twenty-Five is a block theme, so WooCommerce uses blocks for the shop!
+ */
+.wc-block-components-product-image,
+.woocommerce-product-gallery__image {
+	position: relative;
+	display: inline-block;
+	padding: var(--scallop-thickness) !important;
+	box-sizing: border-box;
+	max-width: 100%;
+	z-index: 1; /* Establish a stacking context for the pseudo-element */
+    /* Ensure no background is set on the container itself to avoid hiding the scallops */
+    background-color: transparent !important;
+}
+
+.wc-block-components-product-image::before,
+.woocommerce-product-gallery__image::before {
+	content: "";
+	position: absolute;
+	inset: 0; /* Cover the whole wrapper, including padding */
+	background-color: var(--scallop-color);
+	z-index: -1; /* Send it behind the image */
+
+	/* The CSS mask that creates the outward-facing scalloped edge */
+	-webkit-mask:
+		radial-gradient(var(--scallop-radius) at 50% var(--scallop-radius), #000 98%, #0000 101%) 0 0 / var(--scallop-spacing) 100%,
+		radial-gradient(var(--scallop-radius) at var(--scallop-radius) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--scallop-spacing),
+		radial-gradient(var(--scallop-radius) at 50% calc(100% - var(--scallop-radius)), #000 98%, #0000 101%) 0 0 / var(--scallop-spacing) 100%,
+		radial-gradient(var(--scallop-radius) at calc(100% - var(--scallop-radius)) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--scallop-spacing),
+		linear-gradient(#000 0 0) center / calc(100% - 2 * var(--scallop-radius)) calc(100% - 2 * var(--scallop-radius)) no-repeat;
+
+	mask:
+		radial-gradient(var(--scallop-radius) at 50% var(--scallop-radius), #000 98%, #0000 101%) 0 0 / var(--scallop-spacing) 100%,
+		radial-gradient(var(--scallop-radius) at var(--scallop-radius) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--scallop-spacing),
+		radial-gradient(var(--scallop-radius) at 50% calc(100% - var(--scallop-radius)), #000 98%, #0000 101%) 0 0 / var(--scallop-spacing) 100%,
+		radial-gradient(var(--scallop-radius) at calc(100% - var(--scallop-radius)) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--scallop-spacing),
+		linear-gradient(#000 0 0) center / calc(100% - 2 * var(--scallop-radius)) calc(100% - 2 * var(--scallop-radius)) no-repeat;
+}
+
+/* Ensure the image touches the border edge and behaves well */
+.wc-block-components-product-image img,
+.woocommerce-product-gallery__image img,
+.wc-block-components-product-image > a {
+	display: block !important;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	/* Slight internal rounding looks nicer but is optional */
+	border-radius: 4px;
+    margin: 0 !important;
+}
+
+/*
+ * The single product page image often has an `a` tag inside the gallery wrapper.
+ * We must ensure the `a` tag behaves as a block so the wrapper collapses correctly.
+ */
+.woocommerce-product-gallery__image a {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+/* Fallback for classic WooCommerce loops if blocks are not used */
+.woocommerce ul.products li.product .woocommerce-loop-product__link .attachment-woocommerce_thumbnail {
+    padding: var(--scallop-thickness) !important;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__link {
+    display: block;
+    position: relative;
+    padding: var(--scallop-thickness);
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__link::before {
+    content: "";
+	position: absolute;
+	inset: 0; /* Cover the whole wrapper, including padding */
+	background-color: var(--scallop-color);
+	z-index: -1; /* Send it behind the image */
+
+	/* The CSS mask that creates the outward-facing scalloped edge */
+	-webkit-mask:
+		radial-gradient(var(--scallop-radius) at 50% var(--scallop-radius), #000 98%, #0000 101%) 0 0 / var(--scallop-spacing) 100%,
+		radial-gradient(var(--scallop-radius) at var(--scallop-radius) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--scallop-spacing),
+		radial-gradient(var(--scallop-radius) at 50% calc(100% - var(--scallop-radius)), #000 98%, #0000 101%) 0 0 / var(--scallop-spacing) 100%,
+		radial-gradient(var(--scallop-radius) at calc(100% - var(--scallop-radius)) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--scallop-spacing),
+		linear-gradient(#000 0 0) center / calc(100% - 2 * var(--scallop-radius)) calc(100% - 2 * var(--scallop-radius)) no-repeat;
+
+	mask:
+		radial-gradient(var(--scallop-radius) at 50% var(--scallop-radius), #000 98%, #0000 101%) 0 0 / var(--scallop-spacing) 100%,
+		radial-gradient(var(--scallop-radius) at var(--scallop-radius) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--scallop-spacing),
+		radial-gradient(var(--scallop-radius) at 50% calc(100% - var(--scallop-radius)), #000 98%, #0000 101%) 0 0 / var(--scallop-spacing) 100%,
+		radial-gradient(var(--scallop-radius) at calc(100% - var(--scallop-radius)) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--scallop-spacing),
+		linear-gradient(#000 0 0) center / calc(100% - 2 * var(--scallop-radius)) calc(100% - 2 * var(--scallop-radius)) no-repeat;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__link img {
+    margin: 0 0 1em 0;
+    border-radius: 4px;
+}
