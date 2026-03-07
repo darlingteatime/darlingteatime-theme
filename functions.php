@@ -16,3 +16,5 @@ function darlingteatime_register_blocks() {
 	register_block_type( __DIR__ . '/blocks/top-products-carousel' );
 }
 add_action( 'init', 'darlingteatime_register_blocks' );
+
+/* Removed old PHP action hooks that were targeting classic WooCommerce templates since this is a block theme. */
