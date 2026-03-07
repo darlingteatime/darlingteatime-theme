@@ -101,15 +101,21 @@ Text Domain: darlingteatime-theme
 }
 
 /* Ensure the sale icon on products sits nicely above the scalloped edge */
-.onsale {
-	position: absolute;
-	z-index: 10;
-	top: 10px;
-	left: 10px;
-	background-color: var(--wp--preset--color--secondary, #3da193); /* Deep Mint Accent */
-	color: var(--wp--preset--color--base, #e2fff7); /* Soft Mint Background */
-	padding: 0.5em 1em;
-	border-radius: 4px;
-	font-weight: bold;
-	text-transform: uppercase;
+.onsale,
+.wc-block-components-product-sale-badge,
+.wc-block-components-product-sale-badge--align-right,
+.wc-block-components-product-sale-badge--align-left,
+.wc-block-components-product-sale-badge--align-center,
+.wc-block-grid__product-onsale {
+	position: absolute !important;
+	z-index: 99 !important;
+	top: 10px !important;
+	left: 10px !important;
+	right: auto !important; /* Override right alignment if any */
+	background-color: var(--wp--preset--color--primary, #f192b6) !important; /* Rose Pink */
+	color: var(--wp--preset--color--base, #e2fff7) !important; /* Soft Mint Background */
+	padding: 0.5em 1em !important;
+	border-radius: 4px !important;
+	font-weight: bold !important;
+	text-transform: uppercase !important;
 }

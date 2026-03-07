@@ -9,6 +9,15 @@ store('darlingteatime/top-products-carousel', {
 
             if (!track) return;
 
+            // Clone the initial items to create an infinite loop effect
+            const items = Array.from(track.children);
+            items.forEach((item) => {
+                const clone = item.cloneNode(true);
+                // Remove interactive attributes on clones if necessary, though
+                // for simple links it's usually fine.
+                track.appendChild(clone);
+            });
+
             // Set up autoscroll
             const scrollStep = 1; // Pixels per frame
 
@@ -16,10 +25,16 @@ store('darlingteatime/top-products-carousel', {
                 if (context.isAutoscrolling) {
                     track.scrollLeft += scrollStep;
 
-                    // Reset scroll if we've reached the end
-                    // Use Math.ceil to handle fractional subpixel calculations on high DPI screens
-                    if (Math.ceil(track.scrollLeft + track.clientWidth) >= track.scrollWidth) {
-                        track.scrollLeft = 0;
+                    // The track's scrollWidth is now twice the size of the original content
+                    // If we have scrolled exactly the width of the original content,
+                    // we snap back to the beginning to loop seamlessly.
+                    // Because we doubled the content, the middle is exactly scrollWidth / 2.
+                    // If gap is used, it might be slightly different, so it's safer to measure
+                    // the original items' total width.
+                    // A simple approximation for a flex container with duplicated content:
+                    if (track.scrollLeft >= track.scrollWidth / 2) {
+                        // Snap back by exactly half the scrollWidth
+                        track.scrollLeft -= track.scrollWidth / 2;
                     }
                 }
 
