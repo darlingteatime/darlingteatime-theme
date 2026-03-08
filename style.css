@@ -85,6 +85,80 @@ Text Domain: darlingteatime-theme
     margin: 0 auto 1em auto !important;
 }
 
+/*
+ * WooCommerce Product Search Block Styling
+ * Adds a small scalloped edge frame using the brand Rose Pink color.
+ */
+.wp-block-woocommerce-product-search {
+	--search-scallop-thickness: 6px;
+	--search-scallop-radius: 6px;
+	--search-scallop-spacing: 12px;
+	--search-scallop-color: var(--wp--preset--color--primary, #f192b6);
+
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding: var(--search-scallop-thickness);
+	z-index: 1;
+	background-color: transparent !important;
+	max-width: 200px; /* Keep it small in the header */
+}
+
+.wp-block-woocommerce-product-search::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-color: var(--search-scallop-color);
+	z-index: -1;
+
+	/* The CSS mask that creates the outward-facing scalloped edge */
+	-webkit-mask:
+		radial-gradient(var(--search-scallop-radius) at 50% var(--search-scallop-radius), #000 98%, #0000 101%) 0 0 / var(--search-scallop-spacing) 100% round,
+		radial-gradient(var(--search-scallop-radius) at var(--search-scallop-radius) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--search-scallop-spacing) round,
+		radial-gradient(var(--search-scallop-radius) at 50% calc(100% - var(--search-scallop-radius)), #000 98%, #0000 101%) 0 0 / var(--search-scallop-spacing) 100% round,
+		radial-gradient(var(--search-scallop-radius) at calc(100% - var(--search-scallop-radius)) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--search-scallop-spacing) round,
+		linear-gradient(#000 0 0) center / calc(100% - 2 * var(--search-scallop-radius)) calc(100% - 2 * var(--search-scallop-radius)) no-repeat;
+
+	mask:
+		radial-gradient(var(--search-scallop-radius) at 50% var(--search-scallop-radius), #000 98%, #0000 101%) 0 0 / var(--search-scallop-spacing) 100% round,
+		radial-gradient(var(--search-scallop-radius) at var(--search-scallop-radius) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--search-scallop-spacing) round,
+		radial-gradient(var(--search-scallop-radius) at 50% calc(100% - var(--search-scallop-radius)), #000 98%, #0000 101%) 0 0 / var(--search-scallop-spacing) 100% round,
+		radial-gradient(var(--search-scallop-radius) at calc(100% - var(--search-scallop-radius)) 50%, #000 98%, #0000 101%) 0 0 / 100% var(--search-scallop-spacing) round,
+		linear-gradient(#000 0 0) center / calc(100% - 2 * var(--search-scallop-radius)) calc(100% - 2 * var(--search-scallop-radius)) no-repeat;
+}
+
+.wp-block-woocommerce-product-search form {
+	display: flex;
+	width: 100%;
+	margin: 0;
+	background: #fff;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.wp-block-woocommerce-product-search .wc-block-product-search__field {
+	border: none;
+	padding: 5px 10px;
+	font-size: 0.9em;
+	width: 100%;
+	background: transparent;
+	outline: none;
+}
+
+.wp-block-woocommerce-product-search .wc-block-product-search__button {
+	background: var(--search-scallop-color);
+	color: #fff;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	font-size: 0.9em;
+	font-weight: bold;
+}
+
+.wp-block-woocommerce-product-search .wc-block-product-search__button:hover {
+	opacity: 0.9;
+}
+
 /* For the single product page image, remove the margin entirely */
 .woocommerce-product-gallery__image img {
 	margin: 0 !important;
