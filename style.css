@@ -16,16 +16,18 @@ Text Domain: darlingteatime-theme
 }
 
 /*
- * Apply directly to modern WooCommerce block components
+/* Apply directly to modern WooCommerce block components and specific front page sections
  * Twenty Twenty-Five is a block theme, so WooCommerce uses blocks for the shop!
  * We now apply the scalloped frame to the entire product card in the loop,
- * and keep it just on the image for the single product page.
+ * keep it just on the image for the single product page,
+ * and also apply it to the front-page carousel and latest post sections.
  */
 .wc-block-product,
 .wc-block-grid__product,
 .wc-block-components-product-card,
 .woocommerce ul.products li.product,
-.woocommerce-product-gallery__image {
+.woocommerce-product-gallery__image,
+.scalloped-section-wrapper {
 	position: relative;
 	display: block;
 	padding: calc(var(--scallop-thickness) + 12px) !important; /* Increased padding so content breathes inside the frame */
@@ -46,7 +48,8 @@ Text Domain: darlingteatime-theme
 .wc-block-grid__product::before,
 .wc-block-components-product-card::before,
 .woocommerce ul.products li.product::before,
-.woocommerce-product-gallery__image::before {
+.woocommerce-product-gallery__image::before,
+.scalloped-section-wrapper::before {
 	content: "";
 	position: absolute;
 	inset: 0; /* Cover the whole wrapper, including padding */
@@ -75,7 +78,8 @@ Text Domain: darlingteatime-theme
 .wc-block-grid__product img,
 .wc-block-components-product-card img,
 .woocommerce ul.products li.product img,
-.woocommerce-product-gallery__image img {
+.woocommerce-product-gallery__image img,
+.scalloped-section-wrapper img {
 	display: block !important;
 	width: 100%;
 	height: auto;
@@ -88,6 +92,19 @@ Text Domain: darlingteatime-theme
 /* For the single product page image, remove the margin entirely */
 .woocommerce-product-gallery__image img {
 	margin: 0 !important;
+}
+
+/* Ensure the latest post block fits nicely in the wrapper */
+.scalloped-section-wrapper .wp-block-latest-posts {
+    padding: 0;
+    margin: 0;
+}
+
+.scalloped-section-wrapper .wp-block-latest-posts li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 /*
