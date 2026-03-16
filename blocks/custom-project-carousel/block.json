@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "darlingteatime/custom-project-carousel",
+  "title": "Custom Project Carousel",
+  "category": "widgets",
+  "icon": "images-alt2",
+  "description": "A carousel of images from the Custom Project product gallery.",
+  "supports": {
+    "html": false,
+    "interactivity": true
+  },
+  "attributes": {
+  },
+  "render": "file:./render.php",
+  "viewScriptModule": "file:./view.js",
+  "editorScript": "file:./index.js",
+  "style": "file:./style.css"
+}

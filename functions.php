@@ -14,6 +14,7 @@ add_action( 'wp_enqueue_scripts', 'darlingteatime_enqueue_styles' );
 
 function darlingteatime_register_blocks() {
 	register_block_type( __DIR__ . '/blocks/top-products-carousel' );
+	register_block_type( __DIR__ . '/blocks/custom-project-carousel' );
 }
 add_action( 'init', 'darlingteatime_register_blocks' );
 
