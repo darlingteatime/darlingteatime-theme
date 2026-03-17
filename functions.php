@@ -19,3 +19,11 @@ function darlingteatime_register_blocks() {
 add_action( 'init', 'darlingteatime_register_blocks' );
 
 /* Removed old PHP action hooks that were targeting classic WooCommerce templates since this is a block theme. */
+
+function darlingteatime_excerpt_more( $more ) {
+	if ( ! is_admin() ) {
+		return '... <a class="read-more" href="' . get_permalink( get_the_ID() ) . '">' . __( 'Continue reading', 'darlingteatime' ) . '</a>';
+	}
+	return $more;
+}
+add_filter( 'excerpt_more', 'darlingteatime_excerpt_more' );
