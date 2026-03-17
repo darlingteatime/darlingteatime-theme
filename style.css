@@ -38,6 +38,12 @@ Text Domain: darlingteatime-theme
     background-color: transparent !important;
 }
 
+/* Shrink scalloped frame width to fit its content on the front page and keep it centered */
+.home .scalloped-section-wrapper {
+	width: fit-content;
+	margin: 0 auto;
+}
+
 /* The single product page image needs less padding, just the thickness of the scallop */
 .woocommerce-product-gallery__image {
 	display: inline-block;
