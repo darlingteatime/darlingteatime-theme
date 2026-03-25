@@ -142,3 +142,75 @@ Text Domain: darlingteatime-theme
 	font-weight: bold !important;
 	text-transform: uppercase !important;
 }
+
+
+
+
+
+
+/* === Custom Header Search Bar Styling === */
+
+/* Hide the smaller search bar (the one with the magnifying glass icon) */
+header .wp-block-search__button.has-icon,
+header .wp-block-search.wp-block-search__button-only:has(.wp-block-search__button.has-icon),
+header .wp-block-search:has(.wp-block-search__button.has-icon) {
+    display: none !important;
+}
+
+/* Resize the larger search bar (the one with the text button) */
+
+/* Reduce overall width and align correctly with nav items */
+header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) {
+    max-width: 250px !important; /* Made smaller to match tab width better */
+    margin-left: 10px;
+    display: flex;
+    align-items: center; /* Ensure vertical alignment */
+}
+
+/* Hide the visible label to avoid awkward text placement next to input */
+header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) .wp-block-search__label {
+    display: none !important;
+}
+
+/* Ensure the wrapper respects our height constraints and has rounded corners */
+header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) .wp-block-search__inside-wrapper {
+    padding: 0 !important;
+    border-radius: 999px !important; /* Fully rounded based on image */
+    overflow: hidden !important; /* Ensure children don't break the rounding */
+    display: flex !important;
+    flex-direction: row !important; /* Force items side by side */
+    align-items: stretch !important;
+    height: 40px !important; /* Match text height more closely */
+    border: 1px solid var(--wp--preset--color--contrast, #4a3c31); /* Inherit or use dark brown */
+}
+
+/* Reduce height of the input field */
+header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) .wp-block-search__input {
+    flex-grow: 1 !important; /* Allow the input to take remaining space */
+    height: 100% !important; /* Fill wrapper */
+    padding: 0 15px !important; /* Adjust horizontal padding */
+    font-size: 0.95rem !important; /* Slightly smaller text to fit the new height */
+    border: none !important; /* Remove individual border as wrapper has it */
+    outline: none !important;
+    background: transparent !important;
+    margin: 0 !important;
+    min-width: 0 !important; /* Prevent text from causing overflow */
+}
+
+/* Reduce height of the submit button and fix its layout */
+header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) .wp-block-search__button {
+    flex-shrink: 0 !important; /* Do not shrink the button */
+    height: 100% !important; /* Fill wrapper */
+    padding: 0 20px !important; /* Adjust horizontal padding */
+    font-size: 0.95rem !important;
+    line-height: 1 !important; /* Prevent text from pushing the height */
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important; /* Prevent 'Search' text from wrapping */
+    border: none !important; /* Remove individual border */
+    background-color: var(--wp--preset--color--contrast, #4a3c31) !important;
+    color: var(--wp--preset--color--base, #e2fff7) !important;
+    margin: 0 !important;
+    border-radius: 0 !important; /* Disable any block border radius, relying on wrapper overflow */
+}
