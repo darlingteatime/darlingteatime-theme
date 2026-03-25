@@ -229,3 +229,52 @@ header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) .wp-block-s
 .wc-block-pagination, .woocommerce-pagination {
     text-decoration: none;
 }
+
+/* === Shop Page Sorting Dropdown Cutification === */
+
+/* Target classic WooCommerce sorting and modern Block sorting dropdowns */
+.woocommerce-ordering select.orderby,
+.wc-block-components-sort-select__select,
+.wc-block-catalog-sorting select {
+    appearance: none; /* Remove default browser styling where possible */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--wp--preset--color--primary, #f192b6) !important; /* Rose Pink background */
+    color: var(--wp--preset--color--contrast, #4a3c31) !important; /* Dark Brown text */
+    border: 1px solid var(--wp--preset--color--contrast, #4a3c31) !important; /* Dark Brown border */
+    border-radius: 999px !important; /* Pill shape */
+    padding: 8px 32px 8px 16px !important; /* Padding for pill shape, extra right padding for arrow */
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    cursor: pointer !important;
+    outline: none !important;
+
+    /* Custom Dropdown Arrow */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a3c31' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px center !important;
+    background-size: 1em !important;
+    transition: all 0.2s ease-in-out !important; /* Smooth transition for hover effects */
+}
+
+/* Hover and Focus States */
+.woocommerce-ordering select.orderby:hover,
+.woocommerce-ordering select.orderby:focus,
+.wc-block-components-sort-select__select:hover,
+.wc-block-components-sort-select__select:focus,
+.wc-block-catalog-sorting select:hover,
+.wc-block-catalog-sorting select:focus {
+    /* Darken the border using primary color (Rose Pink) as user requested */
+    border-color: var(--scallop-color, #f7b9ce) !important;
+    /* Also change the SVG arrow color to match */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f7b9ce' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    box-shadow: 0 0 0 1px var(--scallop-color, #f7b9ce) !important; /* Subtle glow using the border color */
+}
+
+/* Wrapper alignment if needed */
+.woocommerce-ordering,
+.wc-block-components-sort-select,
+.wc-block-catalog-sorting {
+    display: inline-block;
+    margin-bottom: 1em; /* Match general spacing */
+}
