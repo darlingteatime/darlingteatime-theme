@@ -27,3 +27,11 @@ function darlingteatime_excerpt_more( $more ) {
 	return $more;
 }
 add_filter( 'excerpt_more', 'darlingteatime_excerpt_more' );
+
+// Change number of products displayed per page
+add_filter( 'loop_shop_per_page', 'darlingteatime_loop_shop_per_page', 20 );
+function darlingteatime_loop_shop_per_page( $cols ) {
+  // Return the number of products you wanna show per page.
+  $cols = 18;
+  return $cols;
+}
