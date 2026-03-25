@@ -214,3 +214,18 @@ header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) .wp-block-s
     margin: 0 !important;
     border-radius: 0 !important; /* Disable any block border radius, relying on wrapper overflow */
 }
+
+/* Shop Pagination */
+
+/* Keep the existing format (e.g., Previous | Page X of Y | Next) but style the current page number indicator to have an underline */
+.wc-block-pagination .wc-block-pagination-page--active,
+.woocommerce-pagination span.page-numbers.current,
+.wp-block-query-pagination-numbers .current {
+    text-decoration: underline;
+    text-underline-offset: 4px; /* Optional: adds a little space between the text and underline for clarity */
+}
+
+/* Ensure the wrapper text is not underlined, only the numbers inside */
+.wc-block-pagination, .woocommerce-pagination {
+    text-decoration: none;
+}
