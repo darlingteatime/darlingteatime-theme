@@ -326,3 +326,66 @@ header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) .wp-block-s
         font-size: 0.85rem !important; /* Smaller text on mobile */
     }
 }
+
+
+/* === Mobile Header Layout Adjustment === */
+@media (max-width: 768px) {
+    /* Target the main flex row inside the header */
+    header .wp-block-group.has-flex-layout {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        row-gap: 15px !important;
+        column-gap: 5px !important;
+    }
+
+    /* Force the site title to take up the full width, pushing other items to the next line */
+    header .wp-block-site-title {
+        flex-basis: 100% !important;
+        text-align: center !important;
+        margin-bottom: 5px !important;
+        justify-content: center !important;
+        display: flex !important;
+    }
+
+    header .wp-block-site-title a {
+        text-align: center !important;
+    }
+
+    /* Target the container(s) holding the nav, account, cart, search */
+    header .wp-block-navigation,
+    header .wp-block-woocommerce-mini-cart,
+    header .wp-block-search {
+        margin: 0 !important; /* Reset margins to rely on gap */
+    }
+
+    /* Ensure the search bar inside the mobile row is well-sized and centered vertically */
+    header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) {
+        margin-left: 0 !important; /* Remove the left margin defined earlier */
+        flex-grow: 1 !important; /* Let it fill the remaining space on the second row */
+        max-width: none !important; /* Remove max-width constraint for mobile row */
+    }
+
+    /* Let's try forcing the header itself and any immediate inner group to block or flex-column to guarantee stacking */
+    header,
+    header > .wp-block-group,
+    header.wp-block-group,
+    header .wp-block-template-part > .wp-block-group {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* Ensure the inner group that actually holds the nav/cart/search stays row */
+    header > .wp-block-group > .wp-block-group,
+    header.wp-block-group > .wp-block-group,
+    header .wp-block-template-part > .wp-block-group > .wp-block-group {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+        gap: 10px !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+}
