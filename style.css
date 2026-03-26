@@ -167,6 +167,13 @@ header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) {
     align-items: center; /* Ensure vertical alignment */
 }
 
+/* On mobile, make the search bar even smaller so it's not overpowering */
+@media (max-width: 768px) {
+    header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) {
+        max-width: 180px !important;
+    }
+}
+
 /* Hide the visible label to avoid awkward text placement next to input */
 header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) .wp-block-search__label {
     display: none !important;
@@ -277,4 +284,45 @@ header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) .wp-block-s
 .wc-block-catalog-sorting {
     display: inline-block;
     margin-bottom: 1em; /* Match general spacing */
+}
+
+/* Ensure the result count and sorting dropdown are side-by-side on mobile */
+@media (max-width: 768px) {
+    /* Target the container that holds both (if using block theme sorting and result count block) */
+    .wp-block-woocommerce-catalog-sorting,
+    .wc-block-components-sort-select,
+    .wc-block-catalog-sorting,
+    form.woocommerce-ordering {
+        max-width: 55%; /* Prevent it from taking full width */
+        margin-bottom: 0;
+    }
+
+    .woocommerce-result-count,
+    .wc-block-components-product-results-count {
+        max-width: 40%;
+        margin-bottom: 0;
+        font-size: 0.9em;
+    }
+
+    /* Container holding both (often the shop page header) */
+    .woocommerce-products-header,
+    .wc-block-components-sort-select,
+    .wp-block-group.has-flex-layout:has(.woocommerce-result-count):has(.woocommerce-ordering),
+    .wp-block-group.has-flex-layout:has(.wc-block-components-product-results-count):has(.wc-block-catalog-sorting) {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 10px;
+        margin-bottom: 1em;
+    }
+
+    .woocommerce-ordering select.orderby,
+    .wc-block-components-sort-select__select,
+    .wc-block-catalog-sorting select {
+        width: 100%;
+        padding: 6px 24px 6px 12px !important; /* Slightly smaller padding on mobile */
+        font-size: 0.85rem !important; /* Smaller text on mobile */
+    }
 }
