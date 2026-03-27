@@ -29,7 +29,9 @@ Text Domain: darlingteatime-theme
 .woocommerce-product-gallery__image,
 .scalloped-section-wrapper {
 	position: relative;
-	display: block;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 	padding: calc(var(--scallop-thickness) + 12px) !important; /* Increased padding so content breathes inside the frame */
 	box-sizing: border-box;
 	max-width: 100%;
@@ -98,6 +100,19 @@ Text Domain: darlingteatime-theme
 /* For the single product page image, remove the margin entirely */
 .woocommerce-product-gallery__image img {
 	margin: 0 !important;
+}
+
+/* Push price (and anything following it, like the button) to the bottom of the card */
+.wc-block-components-product-price,
+.price {
+	margin-top: auto !important;
+}
+
+/* Reset any bottom margins on the button to ensure symmetrical gap at the bottom */
+.wc-block-components-product-button,
+.add_to_cart_button,
+.wp-block-button {
+	margin-bottom: 0 !important;
 }
 
 /* Ensure the latest post block fits nicely in the wrapper */
