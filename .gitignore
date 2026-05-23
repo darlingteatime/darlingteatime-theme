@@ -1,0 +1,38 @@
+# Dependency Directories
+node_modules/
+package-lock.json
+
+# Local WordPress Environment Overrides
+.wp-env.override.json
+.wp-env.private.json
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Diagnostic / Temporary Files (Local Seeding / DB Tests)
+bin/test-create.php
+bin/test-db.php
+bin/test-insert.php
+bin/diagnose-import.php
