@@ -10,9 +10,24 @@ jobs:
       contents: read
       pull-requests: write
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Generate Dynamic Blueprint
+        id: generate_blueprint
+        run: |
+          # Read blueprint.json and dynamically update the ref/url to match the active PR branch/repo
+          # We use jq to navigate steps and modify the git:directory properties dynamically
+          # We target the head.ref (branch name) and head.repo.full_name to support forks flawlessly
+          jq '.steps[] |= if .step == "installTheme" and .themeData.resource == "git:directory" then .themeData.ref = "${{ github.event.pull_request.head.ref }}" | .themeData.url = "https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git" else . end' blueprint.json > dynamic_blueprint.json
+          
+          # Compress to a clean, single-line JSON string to set as a step output
+          blueprint=$(cat dynamic_blueprint.json | jq -c .)
+          echo "blueprint=$blueprint" >> $GITHUB_OUTPUT
+
       - name: Post Playground Preview Button
         uses: WordPress/action-wp-playground-pr-preview@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           mode: 'append-to-description'
-          theme-path: .
+          blueprint: ${{ steps.generate_blueprint.outputs.blueprint }}
