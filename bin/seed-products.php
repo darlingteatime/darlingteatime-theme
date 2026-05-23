@@ -18,7 +18,8 @@ foreach ( $existing_products as $p ) {
 $wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type IN ('product', 'product_variation')" );
 
 // Prepare and register the custom tea placeholder image in the media library
-$placeholder_path = '/var/www/html/wp-content/themes/darlingteatime-theme/bin/placeholder.png';
+// Use get_stylesheet_directory() to dynamically resolve path in local and Playground environments
+$placeholder_path = get_stylesheet_directory() . '/bin/placeholder.png';
 $attachment_id = 0;
 
 $existing_attachment = $wpdb->get_var( "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'attachment' AND post_title = 'darlingteatime-placeholder'" );
@@ -26,24 +27,64 @@ $existing_attachment = $wpdb->get_var( "SELECT ID FROM {$wpdb->posts} WHERE post
 if ( $existing_attachment ) {
     $attachment_id = (int) $existing_attachment;
     echo "Using existing placeholder image (Attachment ID: $attachment_id)\n";
-} else if ( file_exists( $placeholder_path ) ) {
-    echo "Registering new placeholder image in the media library...\n";
-    $upload_dir = wp_upload_dir();
-    $image_data = @file_get_contents( $placeholder_path );
+} else {
+    // Correct paths for Playground /var/www/html/ vs /wordpress/ mismatch
+    if ( ! file_exists( $placeholder_path ) ) {
+        $alt_placeholder = str_replace( '/var/www/html/', '/wordpress/', $placeholder_path );
+        if ( file_exists( $alt_placeholder ) ) {
+            $placeholder_path = $alt_placeholder;
+        }
+    }
+
+    $image_data = null;
     $filename = 'placeholder.png';
-    
+    $mime_type = 'image/png';
+
+    if ( file_exists( $placeholder_path ) ) {
+        echo "Reading placeholder image from local theme path: $placeholder_path\n";
+        $image_data = @file_get_contents( $placeholder_path );
+    } else {
+        echo "Placeholder image file not found locally at $placeholder_path. Attempting remote download...\n";
+        $remote_urls = array(
+            'https://raw.githubusercontent.com/darlingteatime/darlingteatime-theme/readme-update/bin/placeholder.png',
+            'https://raw.githubusercontent.com/darlingteatime/darlingteatime-theme/main/bin/placeholder.png'
+        );
+
+        foreach ( $remote_urls as $url ) {
+            echo "Trying remote URL: $url\n";
+            $response = wp_remote_get( $url, array( 'timeout' => 15 ) );
+            if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 ) {
+                $image_data = wp_remote_retrieve_body( $response );
+                echo "Successfully downloaded placeholder image from remote!\n";
+                break;
+            }
+        }
+
+        if ( ! $image_data ) {
+            echo "Warning: Could not download PNG placeholder. Creating a self-contained SVG placeholder instead!\n";
+            $image_data = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+              <rect width="100%" height="100%" fill="#faf6f0"/>
+              <circle cx="400" cy="400" r="250" fill="#f0e5d8" stroke="#d5c3b0" stroke-width="4"/>
+              <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="48" fill="#5c4033" font-weight="bold">Darling Teatime</text>
+              <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#8b5a2b" font-style="italic">Premium Tea Experience</text>
+            </svg>';
+            $filename = 'placeholder.svg';
+            $mime_type = 'image/svg+xml';
+        }
+    }
+
     if ( $image_data ) {
+        $upload_dir = wp_upload_dir();
         if ( wp_mkdir_p( $upload_dir['path'] ) ) {
             $file = $upload_dir['path'] . '/' . $filename;
         } else {
             $file = $upload_dir['basedir'] . '/' . $filename;
         }
-        
+
         file_put_contents( $file, $image_data );
         
-        $wp_filetype = wp_check_filetype( $filename, null );
         $attachment = array(
-            'post_mime_type' => $wp_filetype['type'],
+            'post_mime_type' => $mime_type,
             'post_title'     => 'darlingteatime-placeholder',
             'post_content'   => '',
             'post_status'    => 'inherit'
@@ -52,19 +93,19 @@ if ( $existing_attachment ) {
         $attachment_id = wp_insert_attachment( $attachment, $file );
         
         if ( ! is_wp_error( $attachment_id ) && $attachment_id > 0 ) {
-            require_once ABSPATH . 'wp-admin/includes/image.php';
-            $attachment_data = wp_generate_attachment_metadata( $attachment_id, $file );
-            wp_update_attachment_metadata( $attachment_id, $attachment_data );
+            if ( $mime_type !== 'image/svg+xml' ) {
+                require_once ABSPATH . 'wp-admin/includes/image.php';
+                $attachment_data = wp_generate_attachment_metadata( $attachment_id, $file );
+                wp_update_attachment_metadata( $attachment_id, $attachment_data );
+            }
             echo "Successfully registered placeholder image! (Attachment ID: $attachment_id)\n";
         } else {
             $attachment_id = 0;
             echo "Warning: Failed to insert attachment into media library.\n";
         }
     } else {
-        echo "Warning: Cannot read placeholder image file.\n";
+        echo "Warning: Cannot obtain placeholder image data.\n";
     }
-} else {
-    echo "Warning: Placeholder image file not found at $placeholder_path\n";
 }
 
 // 1. Create the Custom Project product for the front-page carousel
@@ -89,10 +130,37 @@ if ( $custom_id ) {
 }
 
 // 2. Import the 25 standard WooCommerce sample products
-$file_path = '/var/www/html/wp-content/plugins/woocommerce/sample-data/sample_products.csv';
+// Use WP_PLUGIN_DIR to dynamically resolve plugins folder in local and Playground environments
+$file_path = WP_PLUGIN_DIR . '/woocommerce/sample-data/sample_products.csv';
+
+// Fallback path check in Playground if /var/www/html/ is in path but actual is /wordpress/
 if ( ! file_exists( $file_path ) ) {
-    echo "Error: CSV file not found at $file_path\n";
-    exit(1);
+    $alt_path = str_replace( '/var/www/html/', '/wordpress/', $file_path );
+    if ( file_exists( $alt_path ) ) {
+        $file_path = $alt_path;
+    }
+}
+
+// Remote URL fallback if still not found
+if ( ! file_exists( $file_path ) ) {
+    echo "CSV file not found locally at $file_path. Attempting to download from official WooCommerce repository...\n";
+    $remote_csv_url = 'https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/sample-data/sample_products.csv';
+    
+    $response = wp_remote_get( $remote_csv_url, array( 'timeout' => 30 ) );
+    if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 ) {
+        $csv_data = wp_remote_retrieve_body( $response );
+        $upload_dir = wp_upload_dir();
+        if ( wp_mkdir_p( $upload_dir['path'] ) ) {
+            $file_path = $upload_dir['path'] . '/sample_products.csv';
+        } else {
+            $file_path = $upload_dir['basedir'] . '/sample_products.csv';
+        }
+        file_put_contents( $file_path, $csv_data );
+        echo "Successfully downloaded WooCommerce sample products CSV to $file_path!\n";
+    } else {
+        echo "Error: CSV file not found locally, and failed to download from remote WooCommerce repository.\n";
+        exit(1);
+    }
 }
 
 $handle = fopen( $file_path, 'r' );

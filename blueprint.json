@@ -5,6 +5,9 @@
     "php": "8.1",
     "wp": "latest"
   },
+  "features": {
+    "networking": true
+  },
   "steps": [
     {
       "step": "login",
@@ -13,8 +16,9 @@
     },
     {
       "step": "installPlugin",
-      "pluginZipFile": {
-        "resource": "wordpress.org/plugins/woocommerce"
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "woocommerce"
       },
       "options": {
         "activate": true
@@ -22,15 +26,18 @@
     },
     {
       "step": "installTheme",
-      "themeZipFile": {
-        "resource": "wordpress.org/themes/twentytwentyfive"
+      "themeData": {
+        "resource": "wordpress.org/themes",
+        "slug": "twentytwentyfive"
       }
     },
     {
       "step": "installTheme",
-      "themeZipFile": {
-        "resource": "url",
-        "url": "https://github.com/japek/darlingteatime-theme/archive/refs/heads/main.zip"
+      "themeData": {
+        "resource": "git:directory",
+        "url": "https://github.com/darlingteatime/darlingteatime-theme.git",
+        "ref": "main",
+        "path": "/"
       },
       "options": {
         "activate": true
@@ -38,11 +45,11 @@
     },
     {
       "step": "runPHP",
-      "code": "<?php\n// Run the seeder dynamically inside the active theme directory\n$seeder_file = get_stylesheet_directory() . '/bin/seed-products.php';\nif ( file_exists( $seeder_file ) ) {\n    require_once $seeder_file;\n} else {\n    echo 'Warning: Seeder file not found at ' . $seeder_file . '\\n';\n}\n"
+      "code": "<?php\nrequire_once '/wordpress/wp-load.php';\n// Run the seeder dynamically inside the active theme directory\n$seeder_file = get_stylesheet_directory() . '/bin/seed-products.php';\nif ( file_exists( $seeder_file ) ) {\n    require_once $seeder_file;\n} else {\n    echo 'Warning: Seeder file not found at ' . $seeder_file . '\\n';\n}\n"
     },
     {
       "step": "runPHP",
-      "code": "<?php\n// Enable pretty permalinks inside the WASM sandbox\nglobal $wp_rewrite;\n$wp_rewrite->set_permalink_structure('/%postname%/');\n$wp_rewrite->flush_rules(true);\n"
+      "code": "<?php\nrequire_once '/wordpress/wp-load.php';\n// Enable pretty permalinks inside the WASM sandbox\nglobal $wp_rewrite;\n$wp_rewrite->set_permalink_structure('/%postname%/');\n$wp_rewrite->flush_rules(true);\n"
     }
   ]
 }

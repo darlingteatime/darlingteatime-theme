@@ -278,3 +278,19 @@ header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) .wp-block-s
     display: inline-block;
     margin-bottom: 1em; /* Match general spacing */
 }
+
+/* === Premium Tactile Hover Transitions for WooCommerce Products === */
+.wc-block-product,
+.wc-block-grid__product,
+.wc-block-components-product-card,
+.woocommerce ul.products li.product {
+    transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.wc-block-product:hover,
+.wc-block-grid__product:hover,
+.wc-block-components-product-card:hover,
+.woocommerce ul.products li.product:hover {
+    transform: translateY(-5px) !important;
+}
+
