@@ -1,0 +1,16 @@
+{
+  "name": "darlingteatime-theme",
+  "version": "1.0.0",
+  "description": "WordPress WooCommerce Local Development Environment for Darling Teatime",
+  "private": true,
+  "scripts": {
+    "env:start": "wp-env start",
+    "env:stop": "wp-env stop",
+    "env:clean": "wp-env clean",
+    "env:cli": "wp-env run cli",
+    "env:seed": "wp-env run cli wp plugin activate woocommerce && wp-env run cli wp theme activate darlingteatime-theme && wp-env run cli -- wp eval-file /var/www/html/wp-content/themes/darlingteatime-theme/bin/seed-products.php"
+  },
+  "devDependencies": {
+    "@wordpress/env": "^10.4.0"
+  }
+}
