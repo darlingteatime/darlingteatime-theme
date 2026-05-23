@@ -26,7 +26,7 @@ Text Domain: darlingteatime-theme
 .wc-block-grid__product,
 .wc-block-components-product-card,
 .woocommerce ul.products li.product,
-.woocommerce-product-gallery__image,
+.woocommerce-product-gallery,
 .scalloped-section-wrapper {
 	position: relative;
 	display: block;
@@ -44,9 +44,9 @@ Text Domain: darlingteatime-theme
 	margin: 0 auto;
 }
 
-/* The single product page image needs less padding, just the thickness of the scallop */
-.woocommerce-product-gallery__image {
-	display: inline-block;
+/* The single product page gallery needs less padding, just the thickness of the scallop */
+.woocommerce-product-gallery {
+	display: block;
 	padding: var(--scallop-thickness) !important;
 }
 
@@ -54,7 +54,7 @@ Text Domain: darlingteatime-theme
 .wc-block-grid__product::before,
 .wc-block-components-product-card::before,
 .woocommerce ul.products li.product::before,
-.woocommerce-product-gallery__image::before,
+.woocommerce-product-gallery::before,
 .scalloped-section-wrapper::before {
 	content: "";
 	position: absolute;
@@ -293,4 +293,25 @@ header .wp-block-search:not(:has(.wp-block-search__button.has-icon)) .wp-block-s
 .woocommerce ul.products li.product:hover {
     transform: translateY(-5px) !important;
 }
+
+/* === Consistent Product Card Button Alignment === */
+.wc-block-product,
+.wc-block-grid__product,
+.wc-block-components-product-card,
+.woocommerce ul.products li.product {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+}
+
+/* Push Add to Cart and Read More buttons to the bottom of the card */
+.wc-block-product .wp-block-woocommerce-product-button,
+.wc-block-grid__product .wp-block-woocommerce-product-button,
+.wc-block-components-product-card .wp-block-woocommerce-product-button,
+.woocommerce ul.products li.product .add_to_cart_button,
+.woocommerce ul.products li.product .ajax_add_to_cart,
+.woocommerce ul.products li.product a.button {
+    margin-top: auto !important;
+}
+
 
